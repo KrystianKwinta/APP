@@ -67,9 +67,9 @@ public class CommonBanknote implements Banknote {
     }
 
 
-    public int getQuantity(Banknote banknote){
-        return this.quantity;
-    }
+ /*   public void getQuantity(Banknote banknote){
+        System.out.println(this.quantity);
+    }*/
 
 
 
