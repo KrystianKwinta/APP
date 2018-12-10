@@ -17,7 +17,7 @@ public class ATM {
 
     public static void main(String[] args) {
         ATM atm = new ATM();
-        atm.configure(Arrays.asList(new B100(5), new B50(5), new B20(5), new B10(5), new B5(50)));
+        atm.configure(Arrays.asList(new B100(5), new B50(5), new B20(5), new B10(5), new B5(50), new B2(5)));
         atm.withdraw(1015);
     }
 
