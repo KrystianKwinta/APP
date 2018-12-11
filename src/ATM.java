@@ -1,10 +1,11 @@
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class ATM {
 
     private Banknote top;
-
+    private static HashMap<String, Integer> quantityMap;
 
     public void configure(List<Banknote> banknotes) {
         this.top = banknotes.get(0);
@@ -14,19 +15,20 @@ public class ATM {
         }
     }
 
-
     public static void main(String[] args) {
         ATM atm = new ATM();
-        atm.configure(Arrays.asList(new B100(5), new B50(5), new B20(5), new B10(5), new B5(50), new B2(5)));
-        atm.withdraw(1015);
+        atm.configure(Arrays.asList(new B100(5), new B50(5), new B20(5), new B10(5), new B5(50)));
+        atm.withdraw(50);
+        quantityMap = atm.top.quantityToMap();
+        System.out.println(quantityMap);
+        atm.withdraw(150);
+        quantityMap = atm.top.quantityToMap();
+        System.out.println(quantityMap);
     }
 
     private void withdraw(int amount) {
         top.withdraw(amount);
     }
 
-    private void getQuantity(Banknote banknote)
-    {
-        this.top.getQuantity(banknote);
-    }
+
 }

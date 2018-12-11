@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 public class CommonBanknote implements Banknote {
 
     private Banknote nextBanknote;
@@ -7,7 +9,7 @@ public class CommonBanknote implements Banknote {
     public CommonBanknote(int value, int quantity) {
         this.value = value;
         this.quantity = quantity;
-           }
+    }
 
     @Override
     public void next(Banknote banknote) {
@@ -67,10 +69,29 @@ public class CommonBanknote implements Banknote {
     }
 
 
- /*   public void getQuantity(Banknote banknote){
-        System.out.println(this.quantity);
-    }*/
+    public void getQuantity(HashMap <String, Integer> map) {
+        if (nextBanknote != null) {
+            map.put(nextBanknote.getName(), nextBanknote.getQ());
+            nextBanknote.getQuantity(map);
 
+        } else {
+            //System.out.println("koniec");
+        }
+    }
 
+    public HashMap<String, Integer> quantityToMap() {
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put(getClass().getSimpleName(), quantity);
+        getQuantity(map);
+        return map;
+    }
+
+    public int getQ() {
+        return quantity;
+    }
+
+    public String getName() {
+         return getClass().getSimpleName();
+    }
 
 }
