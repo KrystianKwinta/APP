@@ -18,17 +18,16 @@ public class ATM {
     public static void main(String[] args) {
         ATM atm = new ATM();
         atm.configure(Arrays.asList(new B100(5), new B50(5), new B20(5), new B10(5), new B5(50)));
-        atm.withdraw(50);
+
+        atm.withdraw(175);
+        System.out.println();
         quantityMap = atm.top.quantityToMap();
         System.out.println(quantityMap);
-        atm.withdraw(150);
-        quantityMap = atm.top.quantityToMap();
-        System.out.println(quantityMap);
+
     }
 
     private void withdraw(int amount) {
         top.withdraw(amount);
     }
-
 
 }

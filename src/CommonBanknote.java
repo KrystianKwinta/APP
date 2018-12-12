@@ -18,38 +18,40 @@ public class CommonBanknote implements Banknote {
 
     @Override
     public void withdraw(int amount) {
-
+        System.out.println("Amount to withdraw is: " +amount);
         if (amount < value) {
             goToNextBanknote(amount);
-        } else {
+        }
+
+        else {
+
             int banknotesToWithdraw = amount / value;
             int rest = amount % value;
             if (banknotesToWithdraw <= quantity) {
-                withdrawMoney(banknotesToWithdraw);
                 quantity -= banknotesToWithdraw;
-            } else {
+                System.out.println("Withdrawing: " + banknotesToWithdraw + " x " + value);
+            }
+
+            else {
                 int banknotesUnableToWithdraw = 0;
                 if (quantity != 0) {
-                    withdrawMoney(quantity);
                     banknotesUnableToWithdraw = banknotesToWithdraw - quantity;
                     quantity = 0;
 
                 } else {
                     banknotesUnableToWithdraw = banknotesToWithdraw;
                 }
+
                 rest += banknotesUnableToWithdraw * value;
             }
 
             if (rest != 0) {
+                System.out.println(rest +" to go...");
                 goToNextBanknote(rest);
             }
             if (rest == 0) {
-                for (String el : ResultListSingleton.getInstance().getList()) {
-                    System.out.println(el);
-                }
-                ResultListSingleton.getInstance().clearResult();
+                System.out.println("Withdrawn whole sum.");
             }
-
         }
     }
 
@@ -60,22 +62,12 @@ public class CommonBanknote implements Banknote {
         } else {
             nextBanknote.withdraw(amount);
         }
-
     }
 
-    private void withdrawMoney(int banknotesToWithdraw) {
-        String toSave = String.format("%s * %s", banknotesToWithdraw, value);
-        ResultListSingleton.getInstance().addToResult(toSave);
-    }
-
-
-    public void getQuantity(HashMap <String, Integer> map) {
+    public void getQuantity(HashMap<String, Integer> map) {
         if (nextBanknote != null) {
             map.put(nextBanknote.getName(), nextBanknote.getQ());
             nextBanknote.getQuantity(map);
-
-        } else {
-            //System.out.println("koniec");
         }
     }
 
@@ -83,7 +75,9 @@ public class CommonBanknote implements Banknote {
         HashMap<String, Integer> map = new HashMap<>();
         map.put(getClass().getSimpleName(), quantity);
         getQuantity(map);
+        System.out.println("Current ATM status is : ");
         return map;
+
     }
 
     public int getQ() {
@@ -91,7 +85,7 @@ public class CommonBanknote implements Banknote {
     }
 
     public String getName() {
-         return getClass().getSimpleName();
+        return getClass().getSimpleName();
     }
 
 }
